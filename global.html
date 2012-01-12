@@ -1,0 +1,34 @@
+<script>
+
+//safari.application.addEventListener("validate", validateHandler, true);
+
+// set up command listener
+safari.application.addEventListener("command", performCommand, true);
+
+// set up popover listener
+safari.application.addEventListener("popover", popoverHandler, true);
+
+// main function to perform when event is received
+function performCommand(event) {
+	// check event to be sure it comes from birdy button
+	if (event.command === "open-thebirdy") {
+		var birdyTab = safari.application.activeBrowserWindow.openTab();
+		birdyTab.url = "http://www.thebirdy.com/app";
+	}
+}
+
+// validate popover request event
+function popoverHandler(event) {
+    if (event.target.identifier !== "morteza.TheBirdy.ToolbarID") return;
+}
+
+// show and handle popover
+function popoverHandler(event) {
+	// check event to be sure it comes from birdy button
+	if (event.target.identifier !== "morteza.TheBirdy.ToolbarID") return;
+    
+    var birdyTab = safari.application.activeBrowserWindow.openTab();
+    birdyTab.url = "http://www.thebirdy.com/app";
+}
+
+</script>

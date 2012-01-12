@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Author</key>
+	<string>Morteza Ansarinia</string>
+	<key>Builder Version</key>
+	<string>7534.52.7</string>
+	<key>CFBundleDisplayName</key>
+	<string>The Birdy</string>
+	<key>CFBundleIdentifier</key>
+	<string>morteza.TheBirdy</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>Chrome</key>
+	<dict>
+		<key>Database Quota</key>
+		<real>1048576</real>
+		<key>Global Page</key>
+		<string>global.html</string>
+		<key>Popovers</key>
+		<array>
+			<dict>
+				<key>Filename</key>
+				<string>popover.html</string>
+				<key>Height</key>
+				<real>300</real>
+				<key>Identifier</key>
+				<string>morteza.TheBirdy.PopoverID</string>
+				<key>Width</key>
+				<real>400</real>
+			</dict>
+		</array>
+		<key>Toolbar Items</key>
+		<array>
+			<dict>
+				<key>Command</key>
+				<string></string>
+				<key>Identifier</key>
+				<string>morteza.TheBirdy.ToolbarID</string>
+				<key>Image</key>
+				<string>birdyIcon.png</string>
+				<key>Include By Default</key>
+				<true/>
+				<key>Label</key>
+				<string>The Birdy</string>
+				<key>Palette Label</key>
+				<string>The Birdy</string>
+				<key>Popover</key>
+				<string>morteza.TheBirdy.PopoverID</string>
+				<key>Tool Tip</key>
+				<string>The Birdy Personal Finance Software</string>
+			</dict>
+		</array>
+	</dict>
+	<key>Content</key>
+	<dict>
+		<key>Scripts</key>
+		<dict/>
+	</dict>
+	<key>Description</key>
+	<string>Simple Birdy Extension</string>
+	<key>ExtensionInfoDictionaryVersion</key>
+	<string>1.0</string>
+	<key>Permissions</key>
+	<dict>
+		<key>Website Access</key>
+		<dict>
+			<key>Include Secure Pages</key>
+			<true/>
+			<key>Level</key>
+			<string>All</string>
+		</dict>
+	</dict>
+	<key>Website</key>
+	<string>http://www.thebirdy.com</string>
+</dict>
+</plist>
