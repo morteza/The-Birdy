@@ -2,34 +2,27 @@
 <html>
 <head>
 <script>
-function ahah(url, target) {
-  document.getElementById(target).innerHTML = ' Loading The Birdy...';
-  if (window.XMLHttpRequest) {
-    req = new XMLHttpRequest();
-  }/* else if (window.ActiveXObject) {
-    req = new ActiveXObject("Microsoft.XMLHTTP");
-  }*/
-  if (req != undefined) {
-    req.onreadystatechange = function() {ahahDone(url, target);};
-    req.open("GET", url, true);
-    req.send("");
-  }
-}  
 
-function ahahDone(url, target) {
-  if (req.readyState == 4) { // only if req is "loaded"
-    if (req.status == 200) { // only if "OK"
-      document.getElementById(target).innerHTML = req.responseText;
-    } else {
-      document.getElementById(target).innerHTML=" AHAH Error:\n"+ req.status + "\n" +req.statusText;
+function load(remote_url, div_id) {
+    var xmlhttp = new XMLHttpRequest();
+    var element = document.getElementById(div_id);
+    element.innerHTML = '<p><em>Loading ...</em></p>';
+    xmlhttp.open("GET", remote_url);
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            //var xmlDoc;
+            //parser = new DOMParser();
+            //xmlDoc = parser.parseFromString(xmlhttp.responseText,"text/xml");
+            var doc_tmp = document.implementation.createHTMLDocument("");
+            doc_tmp.createElement('html');
+
+            doc_tmp.documentElement.innerHTML = xmlhttp.responseText;
+                      
+            doc_tmp.getElementById('topbar').style.display = "none";
+            element.innerHTML = doc_tmp.documentElement.innerHTML;
+        }
     }
-  }
-}
-
-function load(name, div) {
-	ahah(name,div);
-    document.getElementById("topbar").style.display = "none";
-	return false;
+    xmlhttp.send(null);
 }
 </script>
 

@@ -28,11 +28,11 @@
 				<key>Filename</key>
 				<string>popover.html</string>
 				<key>Height</key>
-				<real>300</real>
+				<real>400</real>
 				<key>Identifier</key>
 				<string>morteza.TheBirdy.PopoverID</string>
 				<key>Width</key>
-				<real>400</real>
+				<real>500</real>
 			</dict>
 		</array>
 		<key>Toolbar Items</key>
@@ -60,12 +60,7 @@
 	<key>Content</key>
 	<dict>
 		<key>Scripts</key>
-		<dict>
-			<key>Start</key>
-			<array>
-				<string>injection.js</string>
-			</array>
-		</dict>
+		<dict/>
 	</dict>
 	<key>Description</key>
 	<string>Simple Birdy Extension</string>
