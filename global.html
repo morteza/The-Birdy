@@ -1,5 +1,11 @@
 <script>
 
+var isLoggedIn = safari.extension.secureSettings.TheBirdyIsLoggedIn;
+if (!isLoggedIn || isLoggedIn == "no") {
+	doLogin();
+} else {
+}
+
 //safari.application.addEventListener("validate", validateHandler, true);
 
 // set up command listener
@@ -18,17 +24,35 @@ function performCommand(event) {
 }
 
 // validate popover request event
-function popoverHandler(event) {
-    if (event.target.identifier !== "morteza.TheBirdy.ToolbarID") return;
+function validateHandler(event) {
+    if (event.target.identifier !== "TheBirdy.ToolbarID") return;
 }
 
-// show and handle popover
+// show and handle popover request event
 function popoverHandler(event) {
-	// check event to be sure it comes from birdy button
-	if (event.target.identifier !== "morteza.TheBirdy.ToolbarID") return;
-    
-    var birdyTab = safari.application.activeBrowserWindow.openTab();
-    birdyTab.url = "http://www.thebirdy.com/app";
+	var isLoggedIn = safari.extension.secureSettings.TheBirdyIsLoggedIn;
+	if (!isLoggedIn || isLoggedIn == "no") {
+		doLogin();
+	}
 }
 
+function doLogin() {
+	//TODO: check login and update settings key
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "https://thebirdy.com/signin");
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+            var doc_tmp = document.implementation.createHTMLDocument("");
+            //doc_tmp.createElement('html');
+
+            doc_tmp.documentElement.innerHTML = this.responseText;
+                      
+            var body_tmp = doc_tmp.getElementsByTagName('body')[0].attributes[0].nodeValue;
+            alert(body_tmp);
+        }
+    }
+    xmlhttp.send(null);
+
+}
 </script>

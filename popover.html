@@ -10,9 +10,7 @@ function load(remote_url, div_id) {
     xmlhttp.open("GET", remote_url);
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            //var xmlDoc;
-            //parser = new DOMParser();
-            //xmlDoc = parser.parseFromString(xmlhttp.responseText,"text/xml");
+
             var doc_tmp = document.implementation.createHTMLDocument("");
             doc_tmp.createElement('html');
 
@@ -24,10 +22,72 @@ function load(remote_url, div_id) {
     }
     xmlhttp.send(null);
 }
+
+function doSubmit() {
+	//TODO: Check values
+	
+	//document.getElementById("purchaseForm").submit();
+	var x=document.getElementById("purchaseForm");
+	for (var i=0;i<x.length;i++)
+	  {
+	  document.write(x.elements[i].id);
+	  document.write("<br />");
+	  }
+	
+	return true;
+}
+
+function checkLogin() {
+	document.getElementById("content").style.display = "none";
+	return false;
+}
 </script>
 
-<body onload="load('https://m.thebirdy.com/app/purchases/new','content');return false;">
+<!-- <body onload="load('https://m.thebirdy.com/app/purchases/new','content');return false;"> -->
 
-<div id="content"></div>
+<body onload="return checkLogin()">
+<div id="content">
+
+<form id="purchaseForm" class="pageitem" action="https://thebirdy.com/app/purchases/new" method="post" onsubmit="return doSubmit()">
+				<textarea name="text" id="text" rows="5" placeholder="Add a purchase per line, like this: 10,00 IRR catfood #pets" cols="80"></textarea>
+
+				<label for="created" class="required">When did you buy it?</label>
+				<input type="text" name="created" id="created" value="01/12/2012" placeholder="mm/dd/yyyy">
+        		<button id="submit" type="submit" onClick="">Save purchases</button>
+</form>
+</div>
+
+<div id="login">
+<form id="signinForm" class="pageitem" action="https://thebirdy.com/signin" method="post"><dl class="zend_form">
+<dt id="email-label"><label for="email" class="required">Your email address:</label></dt>
+<dd id="email-element" class="bigfield first-child">
+<input type="text" name="email" id="email" value="" placeholder="email address"></dd>
+<dt id="password-label"><label for="password" class="required">Choose a password:</label></dt>
+<dd id="password-element" class="bigfield">
+<input type="password" name="password" id="password" value="" placeholder="password" class="bigfield"></dd>
+
+<dt id="staySignedIn-element" class="checkbox">
+    <input type="hidden" value="0" name="staySignedIn" />
+    <label style="display:none">
+        <input type="checkbox" class="checkbox" value="1" id="staySignedIn" name="staySignedIn"  />
+        Stay signed in? </label>
+</dt>
+
+
+<dd id="submit-element">
+        <button 
+        type="submit"  
+        class="button"  
+
+    name="submit"
+
+    id="submit" 
+     value=""    >
+    Sign in    </button>
+    </dd>
+
+<!-- <input type="hidden" value="" id="forward" name="forward" /> -->
+</dl></form>
+</div>
 </body>
 </html>

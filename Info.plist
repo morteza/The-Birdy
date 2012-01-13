@@ -30,7 +30,7 @@
 				<key>Height</key>
 				<real>400</real>
 				<key>Identifier</key>
-				<string>morteza.TheBirdy.PopoverID</string>
+				<string>TheBirdy.PopoverID</string>
 				<key>Width</key>
 				<real>500</real>
 			</dict>
@@ -41,7 +41,7 @@
 				<key>Command</key>
 				<string></string>
 				<key>Identifier</key>
-				<string>morteza.TheBirdy.ToolbarID</string>
+				<string>TheBirdy.ToolbarID</string>
 				<key>Image</key>
 				<string>birdyIcon.png</string>
 				<key>Include By Default</key>
@@ -51,7 +51,7 @@
 				<key>Palette Label</key>
 				<string>The Birdy</string>
 				<key>Popover</key>
-				<string>morteza.TheBirdy.PopoverID</string>
+				<string>TheBirdy.PopoverID</string>
 				<key>Tool Tip</key>
 				<string>The Birdy Personal Finance Software</string>
 			</dict>
@@ -63,24 +63,20 @@
 		<dict/>
 	</dict>
 	<key>Description</key>
-	<string>Simple Birdy Extension</string>
+	<string>The Birdy Personal Finance Extension</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>
 	<dict>
 		<key>Website Access</key>
 		<dict>
-			<key>Allowed Domains</key>
-			<array>
-				<string>*.thebirdy.com</string>
-			</array>
 			<key>Include Secure Pages</key>
 			<true/>
 			<key>Level</key>
-			<string>Some</string>
+			<string>All</string>
 		</dict>
 	</dict>
 	<key>Website</key>
-	<string>http://www.thebirdy.com</string>
+	<string>http://ansarinia.blogspot.com</string>
 </dict>
 </plist>
