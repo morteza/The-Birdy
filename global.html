@@ -1,18 +1,19 @@
 <script>
 
-var isLoggedIn = safari.extension.secureSettings.TheBirdyIsLoggedIn;
-if (!isLoggedIn || isLoggedIn == "no") {
-	doLogin();
-} else {
-}
+safari.extension.secureSettings.TheBirdyIsLoggedIn = "no";
+
+doLogin();
 
 //safari.application.addEventListener("validate", validateHandler, true);
 
 // set up command listener
-safari.application.addEventListener("command", performCommand, true);
+// safari.application.addEventListener("command", performCommand, true);
 
 // set up popover listener
 safari.application.addEventListener("popover", popoverHandler, true);
+
+// set up setting changed event listener
+safari.extension.secureSettings.addEventListener("change", settingsChangeHandler, true);
 
 // main function to perform when event is received
 function performCommand(event) {
@@ -23,6 +24,12 @@ function performCommand(event) {
 	}
 }
 
+// change settings event
+function settingsChangeHandler(event) {
+	safari.extension.secureSettings.TheBirdyIsLoggedIn = "no";
+	doLogin();
+}
+
 // validate popover request event
 function validateHandler(event) {
     if (event.target.identifier !== "TheBirdy.ToolbarID") return;
@@ -30,26 +37,66 @@ function validateHandler(event) {
 
 // show and handle popover request event
 function popoverHandler(event) {
-	var isLoggedIn = safari.extension.secureSettings.TheBirdyIsLoggedIn;
-	if (!isLoggedIn || isLoggedIn == "no") {
-		doLogin();
-	}
+	safari.extension.popovers[0].contentWindow.location.reload();
 }
 
 function doLogin() {
-	//TODO: check login and update settings key
+	var isLoggedIn = "no";
+	
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "https://thebirdy.com/signin");
+    xmlhttp.open("GET", "https://thebirdy.com/signin", true);
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
             var doc_tmp = document.implementation.createHTMLDocument("");
-            //doc_tmp.createElement('html');
 
             doc_tmp.documentElement.innerHTML = this.responseText;
                       
-            var body_tmp = doc_tmp.getElementsByTagName('body')[0].attributes[0].nodeValue;
-            alert(body_tmp);
+            // Check if already logged in
+            var bodyIdValue = doc_tmp.body.id;
+            var bodyClassValue = doc_tmp.body.attributes['class'].nodeValue;
+            if (bodyIdValue == "accountSigninPage") {
+            	isLoggedIn = "no";
+            } else if (bodyClassValue == "signedIn") {
+            	// successfully logged in
+				isLoggedIn = "yes";            	
+            } else {
+            	isLoggedIn = "no";
+            }
+                        
+            // now perform the login process in background if user is not logged
+            if (!isLoggedIn || isLoggedIn!="yes") {
+            
+            	var signinFormData = new FormData();
+            	
+            	signinFormData.append("email", safari.extension.secureSettings.TheBirdyEmail);
+            	signinFormData.append("password", safari.extension.secureSettings.TheBirdyPassword);
+            	signinFormData.append("staySignedIn", "0");
+            	signinFormData.append("staySignedIn", "1");
+            	signinFormData.append("forward", "");
+				var loginRequest = new XMLHttpRequest();
+				loginRequest.open("POST", "https://thebirdy.com/signin", true);
+				loginRequest.onreadystatechange = function() {
+					if (loginRequest.status == 200) {
+						doc_tmp = document.implementation.createHTMLDocument("");
+						doc_tmp.documentElement.innerHTML = loginRequest.responseText;
+						var bodyIdValue = doc_tmp.body.id;
+						var bodyClassValue = doc_tmp.body.attributes['class'].nodeValue;
+						if (bodyIdValue == "accountSigninPage") {
+							isLoggedIn = "no";
+						} else if (bodyClassValue == "signedIn") {
+							// successfully logged in
+							isLoggedIn = "yes";            	
+						} else {
+							isLoggedIn = "no";
+						}	
+					}
+				}
+            	loginRequest.send(signinFormData);
+            	
+            }
+            
+            safari.extension.secureSettings.TheBirdyIsLoggedIn = isLoggedIn;
         }
     }
     xmlhttp.send(null);
