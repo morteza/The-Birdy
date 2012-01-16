@@ -1,47 +1,73 @@
+<!DOCTYPE html>
 <script>
 
-safari.extension.secureSettings.TheBirdyIsLoggedIn = "no";
+var isSignedIn = 'no'; // 'yes' or 'no' values
+var popover = null;
 
-doLogin();
+safari.application.addEventListener("validate", validateHandler, false);
+safari.application.addEventListener("command" , commandHandler , false);
+safari.application.addEventListener("popover" , popoverHandler , false);
+safari.extension.secureSettings.addEventListener("change", changeHandler, false);
 
-//safari.application.addEventListener("validate", validateHandler, true);
-
-// set up command listener
-// safari.application.addEventListener("command", performCommand, true);
-
-// set up popover listener
-safari.application.addEventListener("popover", popoverHandler, true);
-
-// set up setting changed event listener
-safari.extension.secureSettings.addEventListener("change", settingsChangeHandler, true);
-
-// main function to perform when event is received
 function performCommand(event) {
-	// check event to be sure it comes from birdy button
-	if (event.command === "open-thebirdy") {
-		var birdyTab = safari.application.activeBrowserWindow.openTab();
-		birdyTab.url = "http://www.thebirdy.com/app";
+	if (event.command == "TheBirdy.button") {
+
+		if (isSignedIn !== 'yes') {
+			//TODO: show signin bar
+		}
+			
+		//REMOVED: Old browser-based signin method
+    	/*
+    	if (typeof(isSignedIn) == 'undefined' || isSigned !== 'yes') {
+    		birdySigninTab = safari.application.activeBrowserWindow.openTab();
+    	birdySigninTab.url = 'https://thebirdy.com/signin';
+    		birdySigninTab.activate();
+    	}
+    	*/
 	}
 }
 
-// change settings event
-function settingsChangeHandler(event) {
-	safari.extension.secureSettings.TheBirdyIsLoggedIn = "no";
-	doLogin();
+function changeHandler(event) {
+
+	if (event.key == "TheBirdy.username" || event.key == "TheBirdy.password") {
+		isSignIn = no;
+		performSignIn();
+	}
 }
 
-// validate popover request event
 function validateHandler(event) {
-    if (event.target.identifier !== "TheBirdy.ToolbarID") return;
+ 	if (event.command == "TheBirdy.button")
+ 		if(isSignedIn === 'yes') {
+ 			event.target.toolTip = "Add New Purchase to The Birdy";
+ 			event.target.badge = 0;
+ 			popover = safari.extension.createPopover("TheBirdy.popover", safari.extension.baseURI + "popover.html", 300, 400);
+ 			event.target.popover = popover;
+ 		} else {
+ 	 		event.target.toolTip = "Signin to The Birdy";
+ 			event.target.badge = 1;
+ 			if (popover) {
+ 				popover.hide();
+ 				event.target.popover = null;
+ 				popover = null;
+ 				safari.extension.removePopover("TheBirdy.popover");
+ 			}
+ 		}
+ 	}
 }
 
-// show and handle popover request event
 function popoverHandler(event) {
-	safari.extension.popovers[0].contentWindow.location.reload();
+
+	if (event.target.identifier == "TheBirdy.popover") {
+		if (isSignedIn !== 'yes') {
+			//TODO: delete popover
+			//TODO: set toolbar-button-command to TheBirdy.button.command
+		}
+	}
+	//safari.extension.popovers[0].contentWindow.location.reload();
 }
 
-function doLogin() {
-	var isLoggedIn = "no";
+function performSignIn() {
+	var isSignIn = 'no';
 	
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "https://thebirdy.com/signin", true);

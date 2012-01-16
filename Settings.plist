@@ -14,7 +14,7 @@
 	</dict>
 	<dict>
 		<key>Key</key>
-		<string>TheBirdyEmail</string>
+		<string>TheBirdy.email</string>
 		<key>Password</key>
 		<false/>
 		<key>Secure</key>
@@ -26,7 +26,7 @@
 	</dict>
 	<dict>
 		<key>Key</key>
-		<string>TheBirdyPassword</string>
+		<string>TheBirdy.password</string>
 		<key>Password</key>
 		<true/>
 		<key>Secure</key>
@@ -35,14 +35,6 @@
 		<string>Password</string>
 		<key>Type</key>
 		<string>TextField</string>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
-		<false/>
-		<key>Key</key>
-		<string>TheBirdyIsLoggedIn</string>
-		<key>Secure</key>
-		<true/>
 	</dict>
 </array>
 </plist>

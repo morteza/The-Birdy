@@ -18,6 +18,17 @@
 	<string>1</string>
 	<key>Chrome</key>
 	<dict>
+		<key>Bars</key>
+		<array>
+			<dict>
+				<key>Filename</key>
+				<string>signin-bar.html</string>
+				<key>Identifier</key>
+				<string>TheBirdy.signin_bar</string>
+				<key>Label</key>
+				<string>The Birdy Login Bar</string>
+			</dict>
+		</array>
 		<key>Database Quota</key>
 		<real>1048576</real>
 		<key>Global Page</key>
@@ -30,7 +41,7 @@
 				<key>Height</key>
 				<real>400</real>
 				<key>Identifier</key>
-				<string>TheBirdy.PopoverID</string>
+				<string>TheBirdy.popover</string>
 				<key>Width</key>
 				<real>500</real>
 			</dict>
@@ -39,11 +50,11 @@
 		<array>
 			<dict>
 				<key>Command</key>
-				<string></string>
+				<string>TheBirdy.button.command</string>
 				<key>Identifier</key>
-				<string>TheBirdy.ToolbarID</string>
+				<string>TheBirdy.button</string>
 				<key>Image</key>
-				<string>birdyIcon.png</string>
+				<string>Icon-16.png</string>
 				<key>Include By Default</key>
 				<true/>
 				<key>Label</key>
@@ -51,7 +62,7 @@
 				<key>Palette Label</key>
 				<string>The Birdy</string>
 				<key>Popover</key>
-				<string>TheBirdy.PopoverID</string>
+				<string>TheBirdy.popover</string>
 				<key>Tool Tip</key>
 				<string>The Birdy Personal Finance Software</string>
 			</dict>

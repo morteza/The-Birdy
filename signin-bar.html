@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-
-#header_div {
-}
-
-</style>
 <script>
 
 function checkLogin() {
@@ -31,19 +25,15 @@ function doSubmit() {
 
 </script>
 
-<body id="main_body" onload="checkLogin()">
-
-<div id="header_div"><img id="header_image" src="Icon-64.png" alt=""><div>Test</div></div>
-<img id="top_header" src="top.png" alt="">
-
-<div id="form_container">
+<body onload="checkLogin()">
+<div id="content">
 
 <form id="purchaseForm" class="pageitem" action="https://thebirdy.com/app/purchases/new" method="post" onsubmit="return doSubmit()">
 				<textarea name="text" id="text" rows="5" placeholder="Add a purchase per line, like this: 10,00 USD catfood #pets" cols="40"></textarea>
-				<br />
-				<label for="created">Date:</label>
+
+				<label for="created" class="required">When did you buy it?</label>
 				<input type="text" name="created" id="created" value="01/12/2012" placeholder="mm/dd/yyyy">
-        		<button id="submit" type="submit" onClick="">Save Purchase</button>
+        		<button id="submit" type="submit" onClick="">Save purchases</button>
 </form>
 </div>
 </body>
